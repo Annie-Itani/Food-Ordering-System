@@ -1,0 +1,28 @@
+# BEGIN htaccess
+RewriteEngine On
+
+# Removes Extensions
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteCond %{REQUEST_FILENAME}\.php -f 
+RewriteRule ^(.*)$ $1.php
+
+# Redirects From Extensions To Non-Extensions
+RewriteCond %{THE_REQUEST} \s/+(.+)\.php[\s?] [NC]
+RewriteRule ^ /%1 [R=301,NE,L]
+
+
+RewriteRule ^home/([0-9]+)/([0-9a-zA-Z_-]+) home.php?user_id=$1&test=$2
+
+#RewriteRule ^signup/([0-9a-zA-Z_-]+) signup.php?signup=$1
+
+# To Turn Off Directory Listing
+
+
+# Change Server Signature
+# ServerSignature Email
+# SetEnv SERVER_ADMIN nepal4972@gmail.com
+
+# To Turn Off Server Signature
+#ServerSignature Off
+
+# END htaccess
