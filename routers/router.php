@@ -5,10 +5,14 @@ $success = false;
 $username = $_POST['username'];
 $password = $_POST['password'];
 
+// Fetch the row using username only first
 $result = mysqli_query($con, "SELECT * FROM users WHERE username='$username' and role='Administrator' AND not deleted;");
 
 while ($row = mysqli_fetch_array($result)) {
+	// Retrieve the original password from the database first
 	$originalPassword = $row['password'];
+
+	// Compare the hashes recieved from the form and the password retrieved from the database
 	$passwordMatches  = password_verify($password, $originalPassword);
 
 
@@ -35,8 +39,11 @@ if ($success == true) {
 
 	$result = mysqli_query($con, "SELECT * FROM users WHERE username='$username' and role='Customer' AND not deleted;");
 	while ($row = mysqli_fetch_array($result)) {
-
+		
+		// Retrieve the original password from the database first
 		$originalPassword = $row['password'];
+
+		// Compare the hashes recieved from the form and the password retrieved from the database
 		$passwordMatches  = password_verify($password, $originalPassword);
 
 		if ($passwordMatches) {
